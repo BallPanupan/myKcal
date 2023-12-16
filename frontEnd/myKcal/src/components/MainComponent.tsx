@@ -1,6 +1,6 @@
 // MainComponent.tsx
 import React from 'react';
-import { useGlobalState } from './GlobalContext';
+import { useGlobalState } from '../GlobalContext/GlobalContext';
 
 const MainComponent: React.FC = () => {
   const { someData, setSomeData } = useGlobalState();

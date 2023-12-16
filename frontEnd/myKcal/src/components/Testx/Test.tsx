@@ -1,6 +1,6 @@
 // Testx.tsx
 import React from 'react';
-import { useGlobalState } from '../GlobalContext';
+import { useGlobalState } from '../../GlobalContext/GlobalContext';
 
 const Testx: React.FC = () => {
   const { someData, setSomeData } = useGlobalState();

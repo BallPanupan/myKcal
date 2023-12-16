@@ -1,6 +1,6 @@
 // App.tsx
 import React from 'react';
-import { GlobalProvider } from './components/GlobalContext';
+import { GlobalProvider } from './GlobalContext/GlobalContext';
 import MainComponent from './components/MainComponent';
 import Testx from './components/Testx/Test';
 
