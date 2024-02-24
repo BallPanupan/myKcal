@@ -1,0 +1,54 @@
+/* styles.module.css */
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 8px
+}
+
+.width {
+  width: 100%;
+}
+
+.width-300 {
+  max-width: 300px;
+}
+
+.width-400 {
+  max-width: 400px;
+}
+
+.width-500 {
+  max-width: 500px;
+}
+
+.input {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 13px;
+	font-size: 1.4rem;
+	color: #716d66;
+}
+
+.buttonGroup {
+	display: flex;
+	gap: 8px;
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
+}
+
+.button {
+	background-color: #4fc9da;
+	color: white;
+	padding: 10px;
+	min-width: 120px;
+	border-radius: 14px;
+	border: 0px solid;
+	font-size: 1.2rem;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #30a6b6;
+}
