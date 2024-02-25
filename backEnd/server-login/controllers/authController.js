@@ -31,7 +31,7 @@ const login = async (req, res) => {
 		if (!passwordMatch) {
 			return res.status(401).json({ message: 'Invalid password' });
 		}
-		const token = jwt.sign({ userId: user._id }, 'secret', { expiresIn: '20s' });
+		const token = jwt.sign({ userId: user._id }, 'secret', { expiresIn: '1h' });
 		res.status(200).json({ token });
 	} catch (error) {
 		console.error('Login:', error);
@@ -42,8 +42,7 @@ const login = async (req, res) => {
 const profile = async (req, res) => {
 	try {		
 		// Assuming you are using JWT for authentication and the user ID is stored in req.user
-		console.log('--> user:', req.user.userId);
-		const user = await Users.findById(req.user.userId);
+		const user = await Users.findById(req.user.userId, {password:0});
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
