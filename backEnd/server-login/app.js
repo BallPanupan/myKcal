@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+// install Database and setup a server
+
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 
