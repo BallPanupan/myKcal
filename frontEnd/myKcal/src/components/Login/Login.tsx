@@ -1,28 +1,62 @@
 // Login.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
+import { useGlobalState } from '../../GlobalContext/GlobalContext';
 
 interface LoginProps {
 	width?: 'width' | 'width-300' | 'width-400' | 'width-500';
 }
 
 const Login: React.FC<LoginProps> = ({
-	width = 'with'
+	width = 'width'
 }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const { someData, loggedIn, setLoggedIn, setAuthorization } = useGlobalState();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		// Handle form submission
 		console.log('Submitting:', { username, password });
+		console.log('Login component mounted', { someData, loggedIn });
+	
+		try {
+			const response = await fetch("http://localhost:3000/api/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					email: username,
+					password: password,
+					// email: "panupan@mykcal.com",
+					// password: "password01@"
+				})
+			});
+	
+			if (!response.ok) {
+				setAuthorization('');
+				setLoggedIn(false);
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+	
+			const result = await response.json();
+			setAuthorization(result.token);
+			setLoggedIn(true);
+		} catch (error) {
+			console.error(error);
+		}
 	};
+	
 
-	console.log('width', width)
+
+	useEffect(() => {
+	}, []);
 
 	return (
-		<div className={`${styles[width]}`}>
-			<form className={styles.container} onSubmit={handleSubmit}>
+		<div className={styles.fCenter}>
+			<form className={`${styles.container} ${styles[width]}`} onSubmit={handleSubmit}>
 				<input
 					className={styles.input}
 					type="text"
@@ -38,11 +72,10 @@ const Login: React.FC<LoginProps> = ({
 					placeholder="Password"
 				/>
 				<div className={styles.buttonGroup}>
-					<button className={styles.button} type="submit">Register</button>
+					<button className={styles.button} type="reset">Register</button>
 					<button className={styles.button} type="submit">Login</button>
 				</div>
 			</form>
-
 		</div>
 	);
 };
