@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import { useGlobalState } from '../../GlobalContext/GlobalContext';
+import useShareHelper from '../../helpers/fetchProfile';
 
 interface LoginProps {
 	width?: 'width' | 'width-300' | 'width-400' | 'width-500';
@@ -12,8 +13,8 @@ const Login: React.FC<LoginProps> = ({
 }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const { someData, loggedIn, setLoggedIn, setAuthorization } = useGlobalState();
-
+	const { someData, loggedIn, setLoggedIn, setAuthorizationToken } = useGlobalState();
+	const { fetchProfile } = useShareHelper()
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -36,20 +37,19 @@ const Login: React.FC<LoginProps> = ({
 			});
 	
 			if (!response.ok) {
-				setAuthorization('');
+				setAuthorizationToken('');
 				setLoggedIn(false);
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 	
 			const result = await response.json();
-			setAuthorization(result.token);
+			setAuthorizationToken(result.token);
 			setLoggedIn(true);
+			fetchProfile(result.token);
 		} catch (error) {
 			console.error(error);
 		}
 	};
-	
-
 
 	useEffect(() => {
 	}, []);

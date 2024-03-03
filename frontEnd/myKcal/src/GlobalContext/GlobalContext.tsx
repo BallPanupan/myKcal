@@ -5,10 +5,11 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface GlobalState {
   someData: string;
   loggedIn: boolean;
-  authorization: string;
+  authorizationToken: string;
   setSomeData: (data: string) => void;
   setLoggedIn: (data: boolean) => void;
-  setAuthorization: (data: string) => void;
+  setAuthorizationToken: (data: string) => void;
+  // new prop for profile
 }
 
 // Define the props for the GlobalProvider
@@ -23,15 +24,15 @@ const GlobalContext = createContext<GlobalState | undefined>(undefined);
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [someData, setSomeData] = useState<string>('');
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const [authorization, setAuthorization] = useState<string>('');
+  const [authorizationToken, setAuthorizationToken] = useState<string>('');
 
   const globalValue: GlobalState = {
     someData,
     loggedIn,
-    authorization,
+    authorizationToken,
     setSomeData: (data: string) => setSomeData(data),
     setLoggedIn: (data: boolean) => setLoggedIn(data),
-    setAuthorization: (data: string) => setAuthorization(data),
+    setAuthorizationToken: (data: string) => setAuthorizationToken(data),
   };
 
   console.log('globalValue: ', globalValue);

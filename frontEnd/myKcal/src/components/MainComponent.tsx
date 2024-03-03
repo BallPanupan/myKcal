@@ -1,21 +1,36 @@
 // MainComponent.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
+import useShareHelper from '../helpers/fetchProfile';
 import { useGlobalState } from '../GlobalContext/GlobalContext';
 
 const MainComponent: React.FC = () => {
-  const cookiex = document.cookie;
-  console.log('cookiex: ', cookiex)
+	const { fetchProfile } = useShareHelper()
+  const { authorizationToken } = useGlobalState();
 
-  const cookieValue = `${'test-01'}=${'xxxx'}; path=/`;
-  document.cookie = cookieValue;
+	useEffect(() => {
+		const cookies = document.cookie.split(';');
+		for (let cookie of cookies) {
+			const [name, value] = cookie.trim().split('=');
+			if (name === 'authorization') {
+				fetchProfile(value);
+			}
+		}
+	}, []);
+  
+
+  useEffect(() => {
+    if (authorizationToken) {
+      document.cookie = `authorization=${authorizationToken}; path=/`;
+    }
+  }, [authorizationToken]);
 
   
-  const { someData, setSomeData } = useGlobalState();
+  
+
 
   return (
     <div>
-      <p>Global Data: {someData}</p>
-      <button onClick={() => setSomeData('New Global Data +1')}>Update Global Data</button>
+      {/* <p>Global Data: {someData}</p> */}
     </div>
   );
 };
