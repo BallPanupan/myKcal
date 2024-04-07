@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import { useGlobalState } from '../../GlobalContext/GlobalContext';
 import useShareHelper from '../../helpers/fetchProfile';
+import Modal from '../Modal/Modal';
 
 interface LoginProps {
 	width?: 'width' | 'width-300' | 'width-400' | 'width-500';
@@ -54,6 +55,8 @@ const Login: React.FC<LoginProps> = ({
 	useEffect(() => {
 	}, []);
 
+	const [isModalOpen1, setIsModalOpen1] = useState(false);
+
 	return (
 		<div className={styles.fCenter}>
 			<form className={`${styles.container} ${styles[width]}`} onSubmit={handleSubmit}>
@@ -72,10 +75,17 @@ const Login: React.FC<LoginProps> = ({
 					placeholder="Password"
 				/>
 				<div className={styles.buttonGroup}>
-					<button className={styles.button} type="reset">Register</button>
+					<button className={styles.button} type="reset" onClick={() => setIsModalOpen1(true)}>Register</button>
 					<button className={styles.button} type="submit">Login</button>
 				</div>
 			</form>
+			<div>
+			</div>
+
+      <Modal isOpen={isModalOpen1} specificClose={false} onClose={() => setIsModalOpen1(false)}>
+				call component register 
+      </Modal>
+
 		</div>
 	);
 };

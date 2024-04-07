@@ -8,7 +8,6 @@ const App: React.FC = () => {
   return (
     <GlobalProvider>
       <MainComponent />
-      <Login width='width-500' />
     </GlobalProvider>
   );
 };

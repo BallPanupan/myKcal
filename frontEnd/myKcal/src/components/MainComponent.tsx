@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import useShareHelper from '../helpers/fetchProfile';
 import { useGlobalState } from '../GlobalContext/GlobalContext';
+import Register from './Register/Register';
+import Login from './Login/Login';
 
 const MainComponent: React.FC = () => {
 	const { fetchProfile } = useShareHelper()
@@ -24,12 +26,9 @@ const MainComponent: React.FC = () => {
     }
   }, [authorizationToken]);
 
-  
-  
-
-
   return (
     <div>
+      <Login width='width-500' />
       {/* <p>Global Data: {someData}</p> */}
     </div>
   );
